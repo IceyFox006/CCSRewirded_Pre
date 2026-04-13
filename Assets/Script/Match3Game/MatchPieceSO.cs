@@ -19,5 +19,4 @@ public enum EffectTag
     BREAK_ROW = 001,
     BREAK_COLUMN = 002,
     BREAK_ALL_OF_ELEMENT = 003,
-
 }
