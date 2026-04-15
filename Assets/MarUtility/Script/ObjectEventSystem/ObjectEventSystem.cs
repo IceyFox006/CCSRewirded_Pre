@@ -34,7 +34,7 @@ public class ObjectEventSystem : MonoBehaviour
         private string confirmActionPath = "CONFIRM";
     private InputAction confirm;
 
-    private void Awake() //~REMOVE
+    private void Start() //~REMOVE
     {
         Initialize();
     }
