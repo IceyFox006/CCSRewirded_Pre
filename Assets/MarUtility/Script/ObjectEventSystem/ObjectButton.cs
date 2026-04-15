@@ -1,4 +1,5 @@
 using NaughtyAttributes;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,29 +11,29 @@ public class ObjectButton : MonoBehaviour
     private bool isSelected = false;
 
     //Navigation
-    [Header("Navigation")]
+    [BoxGroup("Navigation")]
     [SerializeField]
         private OBNavigation _navigation;
 
     //Visual
-    [Header("Visual")]
-    [SerializeField]
-        private OBVisualType _visual;
+    [SerializeField, BoxGroup("Visual")]
+        private OBVisualType _visualType;
     private OBVisual curVisual;
-    [SerializeField, ShowIf("_visual", OBVisualType.MATERIAL2D)]
+    [SerializeField, BoxGroup("Visual"), ShowIf("_visualType", OBVisualType.MATERIAL2D)]
         private OBVMaterial2D _materialVisual;
 
     //Event
-    [Header("Event")]
-    [SerializeField]
+    [SerializeField, EnumFlags, BoxGroup("Event")]
+        private OBEventType _eventTypes;
+    [SerializeField, BoxGroup("Event"), ShowIf("_eventTypes", OBEventType.CONFIRM)]
         private UnityEvent _onConfirm;
-    [SerializeField]
+    [SerializeField, BoxGroup("Event"), ShowIf("_eventTypes", OBEventType.SELECT)]
         private UnityEvent _onSelect;
-    [SerializeField]
+    [SerializeField, BoxGroup("Event"), ShowIf("_eventTypes", OBEventType.DESELECT)]
         private UnityEvent _onDeselect;
-    [SerializeField]
+    [SerializeField, BoxGroup("Event"), ShowIf("_eventTypes", OBEventType.HOVER_ENTER)]
         private UnityEvent _onHoverEnter;
-    [SerializeField]
+    [SerializeField, BoxGroup("Event"), ShowIf("_eventTypes", OBEventType.HOVER_EXIT)]
         private UnityEvent _onHoverExit;
 
     #region GS
@@ -42,7 +43,7 @@ public class ObjectButton : MonoBehaviour
 
     #endregion
     #region Initialize
-    private void Awake()
+    private void Awake() //~REMOVE
     {
         Initialize();
     }
@@ -52,7 +53,7 @@ public class ObjectButton : MonoBehaviour
     }
     private void InitializeVisual()
     {
-        switch (_visual)
+        switch (_visualType)
         {
             case OBVisualType.COLOR: break;
             case OBVisualType.SPRITE: break;
@@ -63,42 +64,65 @@ public class ObjectButton : MonoBehaviour
     }
     #endregion
     #region Event
-
+    //Invoke confirm events and update visuals.
     public void OnConfirm()
     {
-
+        _onConfirm.Invoke();
     }
+
+    //Invoke select events and update visuals.
     public void OnSelect()
     {
         isSelected = true;
 
+        _onSelect.Invoke();
         curVisual.ApplySelect();
     }
+
+    //Invoke deselect events and update visuals.
     public void OnDeselect()
     {
         isSelected = false;
 
+        _onDeselect.Invoke();
         if (isHovered)
             curVisual.ApplyHover();
         else
             curVisual.Reset();
     }
+
+    //Invoke hover enter events and update visuals.
     public void OnHoverEnter()
     {
         isHovered = true;
 
+        _onHoverEnter.Invoke();
         if (!isSelected)
             curVisual.ApplyHover();
     }
+
+    //Invoke hover exit events and update visuals.
     public void OnHoverExit()
     {
         isHovered = false;
 
+        _onHoverExit.Invoke();
         if (!isSelected)
             curVisual.Reset();
     }
     #endregion
 }
+[Flags]public enum OBEventType
+{
+    NONE = 000,
+    CONFIRM = 100,
+    SELECT = 200,
+    DESELECT = 210,
+    HOVER_ENTER = 300,
+    HOVER_EXIT = 310,
+}
+
+
 //=====================================================================================================================
 [System.Serializable]
 public class OBNavigation
@@ -124,11 +148,13 @@ public class OBNavigation
 }
 public enum OBNavigationType
 {
-    EXPLICIT,
-    //HORIZONTAL,
-    //VERTICAL,
-    //AUTOMATIC,
+    NONE = 000,
+    EXPLICIT = 100,
+    HORIZONTAL = 200,
+    VERTICAL = 300,
+    AUTOMATIC = 400,
 }
+
 //=====================================================================================================================
 [System.Serializable]
 public class OBVisual
@@ -140,18 +166,18 @@ public class OBVisual
 }
 public enum OBVisualType
 {
-    NONE,
-    COLOR,
-    SPRITE,
-    ANIMATION,
-    MATERIAL2D,
-    MATERIAL3D,
+    NONE = 000,
+    COLOR = 100,
+    SPRITE = 200,
+    ANIMATION = 300,
+    MATERIAL2D = 400,
+    MATERIAL3D = 410,
 }
 //---------------------------------------------------------------------------------------------------------------------
 [System.Serializable]
 public class OBVMaterial2D : OBVisual
 {
-    [SerializeField]
+    [SerializeField, AllowNesting, Required]
         private SpriteRenderer _renderer;
     private Material defaultMaterial;
 
@@ -172,11 +198,15 @@ public class OBVMaterial2D : OBVisual
 
     public override void ApplyHover()
     {
+        if (_hover == null) return;
+
         _renderer.material = _hover;
     }
 
     public override void ApplySelect()
     {
+        if (_select == null) return;
+
         _renderer.material = _select;
     }
 }

@@ -1,34 +1,46 @@
+using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class ObjectEventSystem : MonoBehaviour
 {
-    //Select
-    [SerializeField]
+    //Selection
+    [SerializeField, BoxGroup("Selection")]
         private ObjectButton _firstSelected;
-    public ObjectButton curHover = null;
+    [ShowNonSerializedField]
+        private ObjectButton curHover = null;
+    [SerializeField, BoxGroup("Selection"), MinValue(0), OnValueChanged("OnValueChangedCallback_IndexReplaced"),Tooltip("The max number of buttons that can be selected at once.")]
+        private int _maxNumSelected = 1;
+    [SerializeField, BoxGroup("Selection"), Tooltip("Instead of preventing selection, deselects one of the selected buttons, to select the curHover on select.")]
+        private bool _replaceSelection = false;
+    [SerializeField, BoxGroup("Selection"), MinValue(0), ShowIf("_replaceSelection"), OnValueChanged("OnValueChangedCallback_IndexReplaced"), Tooltip("The index of the button that will be deselected.")]
+        private int _indexReplaced = 0;
     private List<ObjectButton> curSelected = new List<ObjectButton>();
 
     //Input
-    [SerializeField]
+    [SerializeField, BoxGroup("Input")]
         private bool _enableInputOnInitialize = true;
-    [SerializeField]
+    [SerializeField, BoxGroup("Input")]
         private InputActionAsset _inputActions;
-    [SerializeField]
+    [SerializeField, BoxGroup("Input")]
         private string moveActionPath = "MOVE";
     private InputAction move;
     private Vector2 moveDirection;
-    [SerializeField]
+    [SerializeField, BoxGroup("Input")]
         private string selectActionPath = "SELECT";
     private InputAction select;
-    [SerializeField]
+    [SerializeField, BoxGroup("Input")]
         private string confirmActionPath = "CONFIRM";
     private InputAction confirm;
 
-    private void Awake()
+    private void Awake() //~REMOVE
     {
         Initialize();
+    }
+    private void OnDestroy()
+    {
+        DisableInput();
     }
     public void Initialize()
     {
@@ -42,6 +54,7 @@ public class ObjectEventSystem : MonoBehaviour
     }
 
     #region Input
+    //Assigns actions to inputs.
     public void InitializeInput()
     {
         _inputActions.Enable();
@@ -49,16 +62,21 @@ public class ObjectEventSystem : MonoBehaviour
         select = _inputActions.FindAction(selectActionPath);
         confirm = _inputActions.FindAction(confirmActionPath);
     }
+
+    //Add input listeners.
     public void EnableInput()
     {
         move.performed += Move_performed;
         select.performed += Select_performed;
+        confirm.performed += Confirm_performed;
     }
 
+    //Remove input listeners.
     public void DisableInput()
     {
         move.performed -= Move_performed;
         select.performed -= Select_performed;
+        confirm.performed -= Confirm_performed;
     }
 
     //Switches hover to button in direction.
@@ -80,26 +98,67 @@ public class ObjectEventSystem : MonoBehaviour
     //Select if button is not already selected, deselect if it is.
     private void Select_performed(InputAction.CallbackContext obj)
     {
-        if (!curHover.IsSelected)
-            curHover.OnSelect();
+        if (curHover.IsSelected) //Deselect if selected.
+        {
+            RemoveSelected(curHover);
+            return; //Deselected piece.
+        }
+
+        if (curSelected.Count < _maxNumSelected) //Select if there is room.
+            AddSelected(curHover);
         else
-            curHover.OnDeselect();
+        {
+            if (_replaceSelection)
+            {
+                RemoveSelected(curSelected[_indexReplaced]);
+                AddSelected(curHover);
+            }
+        }
+    }
+
+    private void Confirm_performed(InputAction.CallbackContext obj)
+    {
+       
     }
     #endregion
 
+    #region Selection Management
     //Switches which button is currently being hovered over.
-    public void SwitchHover(ObjectButton bo)
+    public void SwitchHover(ObjectButton ob)
     {
         curHover.OnHoverExit();
-        curHover = bo;
+        curHover = ob;
         curHover.OnHoverEnter();
     }
+
+    //Adds ob to curSelected and selects it.
+    private void AddSelected(ObjectButton ob)
+    {
+        ob.OnSelect();
+        curSelected.Add(ob);
+    }
+
+    //Removes ob from curSelected and deselects it.
+    private void RemoveSelected(ObjectButton ob)
+    {
+        ob.OnDeselect();
+        curSelected.Remove(ob);
+    }
+    #endregion
 
     #region Check
     //Returns true if bo can be moved to.
     private bool CanMoveTo(ObjectButton bo)
     {
         return (bo != null && bo.Interactable);
+    }
+    #endregion
+
+    #region Inspector
+    private void OnValueChangedCallback_IndexReplaced()
+    {
+        if (_indexReplaced >= _maxNumSelected)
+            _indexReplaced = _maxNumSelected;
     }
     #endregion
 }

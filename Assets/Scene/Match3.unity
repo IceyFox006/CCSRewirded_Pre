@@ -472,12 +472,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
       propertyPath: _visual
-      value: 4
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
       propertyPath: _navigation._left
       value: 
       objectReference: {fileID: 885632061}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _navigation._type
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
       propertyPath: _materialVisual._hover
       value: 
@@ -674,12 +678,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
       propertyPath: _visual
-      value: 4
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
       propertyPath: _navigation._left
       value: 
       objectReference: {fileID: 52572246}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _navigation._type
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
       propertyPath: _navigation._right
       value: 
@@ -772,7 +780,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectEventSystem
   _firstSelected: {fileID: 52572246}
-  curHover: {fileID: 0}
+  _maxNumSelected: 1
+  _replaceSelection: 0
+  _indexReplaced: 0
   _enableInputOnInitialize: 1
   _inputActions: {fileID: -944628639613478452, guid: 9467f5a773a660e4ea8b97b80e1911f0, type: 3}
   moveActionPath: MOVE
@@ -852,7 +862,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
       propertyPath: _visual
-      value: 4
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _eventTypes
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _navigation._type
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
       propertyPath: _navigation._right
