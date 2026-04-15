@@ -3,8 +3,8 @@ guid: b8fbedada7b78ad43b428e437a0a742c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 12739933804460447
-    second: GravityRoundedSpacedx2_0
+      213: -7253658860812500515
+    second: GravityPiece_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GravityRoundedSpacedx2_0
+      name: GravityPiece_0
       rect:
         serializedVersion: 2
-        x: 49
-        y: 59
-        width: 295
-        height: 282
+        x: 66
+        y: 65
+        width: 268
+        height: 269
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f9970ecf6e24d2000800000000000000
-      internalID: 12739933804460447
+      spriteID: dd1086792b3d55b90800000000000000
+      internalID: -7253658860812500515
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      GravityRoundedSpacedx2_0: 12739933804460447
+      GravityPiece_0: -7253658860812500515
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

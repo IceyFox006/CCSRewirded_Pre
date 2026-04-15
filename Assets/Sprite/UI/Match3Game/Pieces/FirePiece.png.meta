@@ -3,8 +3,8 @@ guid: e07f2efbc7c13334a919cdeb2089d216
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3786245649646389618
-    second: FireRoundedSpacedx2_0
+      213: -2711914429083978939
+    second: FirePiece_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FireRoundedSpacedx2_0
+      name: FirePiece_0
       rect:
         serializedVersion: 2
-        x: 46
-        y: 58
-        width: 323
-        height: 290
+        x: 55
+        y: 75
+        width: 290
+        height: 252
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e86757c54ad847bc0800000000000000
-      internalID: -3786245649646389618
+      spriteID: 5437131f1385d5ad0800000000000000
+      internalID: -2711914429083978939
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      FireRoundedSpacedx2_0: -3786245649646389618
+      FirePiece_0: -2711914429083978939
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -3,8 +3,8 @@ guid: e2e5f91fc25914641b766be4282b6d7f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2290746885017642940
-    second: NeutralRoundedSpacedx2_0
+      213: -8113371334735932256
+    second: DirectPiece_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: NeutralRoundedSpacedx2_0
+      name: DirectPiece_0
       rect:
         serializedVersion: 2
-        x: 36
-        y: 63
-        width: 324
-        height: 274
+        x: 53
+        y: 72
+        width: 295
+        height: 254
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cb72fcfa72e5acf10800000000000000
-      internalID: 2290746885017642940
+      spriteID: 0a45a3ee1c3876f80800000000000000
+      internalID: -8113371334735932256
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      NeutralRoundedSpacedx2_0: 2290746885017642940
+      DirectPiece_0: -8113371334735932256
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

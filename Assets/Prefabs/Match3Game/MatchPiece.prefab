@@ -52,6 +52,11 @@ MonoBehaviour:
     _down: {fileID: 0}
     _left: {fileID: 0}
     _right: {fileID: 0}
+  _visual: 0
+  _materialVisual:
+    _renderer: {fileID: 0}
+    _hover: {fileID: 0}
+    _select: {fileID: 0}
   _onConfirm:
     m_PersistentCalls:
       m_Calls: []
@@ -153,7 +158,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 4.01, y: 4.01}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

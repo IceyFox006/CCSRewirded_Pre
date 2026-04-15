@@ -6,6 +6,8 @@ public class ObjectButton : MonoBehaviour
 {
     [SerializeField]
         private bool _interactable = true;
+    private bool isHovered = false;
+    private bool isSelected = false;
 
     //Navigation
     [Header("Navigation")]
@@ -16,9 +18,9 @@ public class ObjectButton : MonoBehaviour
     [Header("Visual")]
     [SerializeField]
         private OBVisualType _visual;
-    [SerializeField, ShowIf("_visual", OBVisualType.MATERIAL)]
-        private OBVMaterial _materialVisual;
-
+    private OBVisual curVisual;
+    [SerializeField, ShowIf("_visual", OBVisualType.MATERIAL2D)]
+        private OBVMaterial2D _materialVisual;
 
     //Event
     [Header("Event")]
@@ -36,7 +38,29 @@ public class ObjectButton : MonoBehaviour
     #region GS
     public bool Interactable { get => _interactable; set => _interactable = value; }
     public OBNavigation Navigation { get => _navigation; set => _navigation = value; }
+    public bool IsSelected { get => isSelected; set => isSelected = value; }
 
+    #endregion
+    #region Initialize
+    private void Awake()
+    {
+        Initialize();
+    }
+    public void Initialize()
+    {
+        InitializeVisual();
+    }
+    private void InitializeVisual()
+    {
+        switch (_visual)
+        {
+            case OBVisualType.COLOR: break;
+            case OBVisualType.SPRITE: break;
+            case OBVisualType.ANIMATION: break;
+            case OBVisualType.MATERIAL2D: curVisual = _materialVisual; break;
+        }
+        curVisual.Initialize();
+    }
     #endregion
     #region Event
 
@@ -46,19 +70,32 @@ public class ObjectButton : MonoBehaviour
     }
     public void OnSelect()
     {
+        isSelected = true;
 
+        curVisual.ApplySelect();
     }
     public void OnDeselect()
     {
+        isSelected = false;
 
+        if (isHovered)
+            curVisual.ApplyHover();
+        else
+            curVisual.Reset();
     }
     public void OnHoverEnter()
     {
+        isHovered = true;
 
+        if (!isSelected)
+            curVisual.ApplyHover();
     }
     public void OnHoverExit()
     {
+        isHovered = false;
 
+        if (!isSelected)
+            curVisual.Reset();
     }
     #endregion
 }
@@ -96,6 +133,7 @@ public enum OBNavigationType
 [System.Serializable]
 public class OBVisual
 {
+    public virtual void Initialize() { }
     public virtual void Reset() { }
     public virtual void ApplyHover() { }
     public virtual void ApplySelect() { }
@@ -106,14 +144,16 @@ public enum OBVisualType
     COLOR,
     SPRITE,
     ANIMATION,
-    MATERIAL,
+    MATERIAL2D,
+    MATERIAL3D,
 }
 //---------------------------------------------------------------------------------------------------------------------
 [System.Serializable]
-public class OBVMaterial : OBVisual
+public class OBVMaterial2D : OBVisual
 {
     [SerializeField]
         private SpriteRenderer _renderer;
+    private Material defaultMaterial;
 
     [Header("Material")]
     [SerializeField, AllowNesting]
@@ -121,19 +161,23 @@ public class OBVMaterial : OBVisual
     [SerializeField, AllowNesting]
         private Material _select;
 
+    public override void Initialize()
+    {
+        defaultMaterial = _renderer.material;
+    }
     public override void Reset()
     {
-        base.Reset();
+        _renderer.material = defaultMaterial;
     }
 
     public override void ApplyHover()
     {
-        base.ApplyHover();
+        _renderer.material = _hover;
     }
 
     public override void ApplySelect()
     {
-        base.ApplySelect();
+        _renderer.material = _select;
     }
 }
 
