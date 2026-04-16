@@ -5,31 +5,40 @@ using UnityEngine.InputSystem;
 
 public class ObjectEventSystem : MonoBehaviour
 {
-    //Selection
+    //SELECTION
     [SerializeField, BoxGroup("Selection")]
         private ObjectButton _firstSelected;
-    [ShowNonSerializedField]
-        private ObjectButton curHover = null;
+
     [SerializeField, BoxGroup("Selection"), MinValue(0), OnValueChanged("OnValueChangedCallback_IndexReplaced"),Tooltip("The max number of buttons that can be selected at once.")]
         private int _maxNumSelected = 1;
+    //Replace Select
     [SerializeField, BoxGroup("Selection"), Tooltip("Instead of preventing selection, deselects one of the selected buttons, to select the curHover on select.")]
         private bool _replaceSelection = false;
     [SerializeField, BoxGroup("Selection"), MinValue(0), ShowIf("_replaceSelection"), OnValueChanged("OnValueChangedCallback_IndexReplaced"), Tooltip("The index of the button that will be deselected.")]
         private int _indexReplaced = 0;
+    //Deselect Confirm
+    [SerializeField, BoxGroup("Selection"), Tooltip("When confirmed, all selected buttons will be deselected.")]
+        private bool _deselectOnConfirm = true;
+
+    [ShowNonSerializedField]
+        private ObjectButton curHover = null;
     private List<ObjectButton> curSelected = new List<ObjectButton>();
 
-    //Input
+    //INPUT
     [SerializeField, BoxGroup("Input")]
         private bool _enableInputOnInitialize = true;
     [SerializeField, BoxGroup("Input")]
         private InputActionAsset _inputActions;
+    //Move
     [SerializeField, BoxGroup("Input")]
         private string moveActionPath = "MOVE";
     private InputAction move;
     private Vector2 moveDirection;
+    //Select
     [SerializeField, BoxGroup("Input")]
         private string selectActionPath = "SELECT";
     private InputAction select;
+    //Confirm
     [SerializeField, BoxGroup("Input")]
         private string confirmActionPath = "CONFIRM";
     private InputAction confirm;
@@ -116,9 +125,16 @@ public class ObjectEventSystem : MonoBehaviour
         }
     }
 
+    //Confirm button.
     private void Confirm_performed(InputAction.CallbackContext obj)
     {
-       
+       for (int i = curSelected.Count - 1; i >= 0; i--)
+        {
+            curSelected[i].OnConfirm();
+
+            if (_deselectOnConfirm)
+                RemoveSelected(curSelected[i]);
+        }
     }
     #endregion
 

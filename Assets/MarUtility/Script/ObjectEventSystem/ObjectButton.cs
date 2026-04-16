@@ -76,7 +76,11 @@ public class ObjectButton : MonoBehaviour
         isSelected = true;
 
         _onSelect.Invoke();
-        curVisual.ApplySelect();
+
+        if (isHovered)
+            curVisual.ApplyHoverSelect();
+        else
+            curVisual.ApplySelect();
     }
 
     //Invoke deselect events and update visuals.
@@ -99,6 +103,8 @@ public class ObjectButton : MonoBehaviour
         _onHoverEnter.Invoke();
         if (!isSelected)
             curVisual.ApplyHover();
+        else
+            curVisual.ApplyHoverSelect();
     }
 
     //Invoke hover exit events and update visuals.
@@ -109,6 +115,8 @@ public class ObjectButton : MonoBehaviour
         _onHoverExit.Invoke();
         if (!isSelected)
             curVisual.Reset();
+        else
+            curVisual.ApplySelect();
     }
     #endregion
 }
@@ -163,6 +171,7 @@ public class OBVisual
     public virtual void Reset() { }
     public virtual void ApplyHover() { }
     public virtual void ApplySelect() { }
+    public virtual void ApplyHoverSelect() { }
 }
 public enum OBVisualType
 {
@@ -186,6 +195,8 @@ public class OBVMaterial2D : OBVisual
         private Material _hover;
     [SerializeField, AllowNesting]
         private Material _select;
+    [SerializeField, AllowNesting, Tooltip("Activated when hovering over a selected button. If this is not set, select will be activated.")]
+        private Material _hoverSelect;
 
     public override void Initialize()
     {
@@ -208,6 +219,14 @@ public class OBVMaterial2D : OBVisual
         if (_select == null) return;
 
         _renderer.material = _select;
+    }
+
+    public override void ApplyHoverSelect()
+    {
+        if (_hoverSelect == null)
+            _renderer.material = _select;
+        else
+            _renderer.material = _hoverSelect;
     }
 }
 
