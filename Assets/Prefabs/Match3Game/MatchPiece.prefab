@@ -52,11 +52,13 @@ MonoBehaviour:
     _down: {fileID: 0}
     _left: {fileID: 0}
     _right: {fileID: 0}
-  _visual: 0
-  _materialVisual:
-    _renderer: {fileID: 0}
-    _hover: {fileID: 0}
-    _select: {fileID: 0}
+  _visualType: 0
+  _material2DVisual:
+    _renderer: {fileID: 581035029774168476}
+    _hover: {fileID: 2100000, guid: 8bc26d6478d6fa244af52c0167c310b6, type: 2}
+    _select: {fileID: 2100000, guid: 7da5758d540cc4f4191ad408eb14001b, type: 2}
+    _hoverSelect: {fileID: 2100000, guid: 41972679ecec2424090c3e7da3bad409, type: 2}
+  _eventTypes: 0
   _onConfirm:
     m_PersistentCalls:
       m_Calls: []

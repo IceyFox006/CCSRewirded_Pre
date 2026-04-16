@@ -1,5 +1,6 @@
 using NaughtyAttributes;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -16,11 +17,15 @@ public class ObjectButton : MonoBehaviour
         private OBNavigation _navigation;
 
     //Visual
-    [SerializeField, BoxGroup("Visual")]
+    [SerializeField, BoxGroup("Visual"), EnumFlags]
         private OBVisualType _visualType;
-    private OBVisual curVisual;
+    [SerializeField, BoxGroup("Visual"), ShowIf("_visualType", OBVisualType.COLOR)]
+        private OBVColor _colorVisual;
+    [SerializeField, BoxGroup("Visual"), ShowIf("_visualType", OBVisualType.SPRITE)]
+        private OBVSprite _spriteVisual;
     [SerializeField, BoxGroup("Visual"), ShowIf("_visualType", OBVisualType.MATERIAL2D)]
-        private OBVMaterial2D _materialVisual;
+        private OBVMaterial2D _material2DVisual;
+    private List<OBVisual> curVisuals = new List<OBVisual>();
 
     //Event
     [SerializeField, EnumFlags, BoxGroup("Event")]
@@ -53,14 +58,21 @@ public class ObjectButton : MonoBehaviour
     }
     private void InitializeVisual()
     {
-        switch (_visualType)
-        {
-            case OBVisualType.COLOR: break;
-            case OBVisualType.SPRITE: break;
-            case OBVisualType.ANIMATION: break;
-            case OBVisualType.MATERIAL2D: curVisual = _materialVisual; break;
-        }
-        curVisual.Initialize();
+        if (_visualType.HasFlag(OBVisualType.COLOR))
+            curVisuals.Add(_colorVisual);
+        if (_visualType.HasFlag(OBVisualType.SPRITE))
+            curVisuals.Add(_spriteVisual);
+        if (_visualType.HasFlag(OBVisualType.MATERIAL2D))
+            curVisuals.Add(_material2DVisual);
+        //switch (_visualType)
+        //{
+        //    case OBVisualType.COLOR: break;
+        //    case OBVisualType.SPRITE: break;
+        //    case OBVisualType.ANIMATION: break;
+        //    case OBVisualType.MATERIAL2D: curVisual = _materialVisual; break;
+        //}
+        foreach(OBVisual visual in curVisuals)
+            visual.Initialize();
     }
     #endregion
     #region Event
@@ -78,9 +90,15 @@ public class ObjectButton : MonoBehaviour
         _onSelect.Invoke();
 
         if (isHovered)
-            curVisual.ApplyHoverSelect();
+        {
+            foreach (OBVisual visual in curVisuals)
+                visual.ApplyHoverSelect();
+        }
         else
-            curVisual.ApplySelect();
+        {
+            foreach (OBVisual visual in curVisuals)
+                visual.ApplySelect();
+        }
     }
 
     //Invoke deselect events and update visuals.
@@ -90,9 +108,15 @@ public class ObjectButton : MonoBehaviour
 
         _onDeselect.Invoke();
         if (isHovered)
-            curVisual.ApplyHover();
+        {
+            foreach (OBVisual visual in curVisuals)
+                visual.ApplyHover();
+        }
         else
-            curVisual.Reset();
+        {
+            foreach (OBVisual visual in curVisuals)
+                visual.Reset();
+        }
     }
 
     //Invoke hover enter events and update visuals.
@@ -102,9 +126,15 @@ public class ObjectButton : MonoBehaviour
 
         _onHoverEnter.Invoke();
         if (!isSelected)
-            curVisual.ApplyHover();
+        {
+            foreach (OBVisual visual in curVisuals)
+                visual.ApplyHover();
+        }
         else
-            curVisual.ApplyHoverSelect();
+        {
+            foreach (OBVisual visual in curVisuals)
+                visual.ApplyHoverSelect();
+        }
     }
 
     //Invoke hover exit events and update visuals.
@@ -114,9 +144,15 @@ public class ObjectButton : MonoBehaviour
 
         _onHoverExit.Invoke();
         if (!isSelected)
-            curVisual.Reset();
+        {
+            foreach (OBVisual visual in curVisuals)
+                visual.Reset();
+        }
         else
-            curVisual.ApplySelect();
+        {
+            foreach (OBVisual visual in curVisuals)
+                visual.ApplySelect();
+        }
     }
     #endregion
 }
@@ -173,7 +209,7 @@ public class OBVisual
     public virtual void ApplySelect() { }
     public virtual void ApplyHoverSelect() { }
 }
-public enum OBVisualType
+[Flags]public enum OBVisualType
 {
     NONE = 000,
     COLOR = 100,
@@ -181,6 +217,115 @@ public enum OBVisualType
     ANIMATION = 300,
     MATERIAL2D = 400,
     MATERIAL3D = 410,
+}
+//---------------------------------------------------------------------------------------------------------------------
+[System.Serializable]
+public class OBVColor : OBVisual
+{
+    [SerializeField, AllowNesting, Required]
+    private SpriteRenderer _renderer;
+    private Color defaultColor;
+
+    [Header("Color")]
+    [SerializeField, AllowNesting]
+    private Color _hover = Color.white;
+    [SerializeField, AllowNesting]
+    private Color _select = Color.white;
+    [SerializeField, AllowNesting, Tooltip("Activated when hovering over a selected button. If this is not set, select will be activated.")]
+    private Color _hoverSelect = Color.white;
+
+    public override void Initialize()
+    {
+        defaultColor = _renderer.color;
+    }
+
+    public override void Reset()
+    {
+        _renderer.color = defaultColor;
+    }
+
+    public override void ApplyHover()
+    {
+        if (_hover == null) return;
+
+        _renderer.color = _hover;
+    }
+
+    public override void ApplySelect()
+    {
+        if (_select == null) return;
+
+        _renderer.color = _select;
+    }
+
+    public override void ApplyHoverSelect()
+    {
+        if (_hoverSelect == null)
+            ApplySelect();
+        else
+            _renderer.color = _hoverSelect;
+    }
+}
+//---------------------------------------------------------------------------------------------------------------------
+[System.Serializable]
+public class OBVSprite : OBVisual
+{
+    [SerializeField, AllowNesting, Required]
+        private SpriteRenderer _renderer;
+    private Sprite defaultSprite;
+
+    [Header("Sprite")]
+    [SerializeField, AllowNesting]
+        private Sprite _hover;
+    [SerializeField, AllowNesting]
+        private Sprite _select;
+    [SerializeField, AllowNesting, Tooltip("Activated when hovering over a selected button. If this is not set, select will be activated.")]
+        private Sprite _hoverSelect;
+
+    public override void Initialize()
+    {
+        defaultSprite = _renderer.sprite;
+    }
+
+    public override void Reset()
+    {
+        _renderer.sprite = defaultSprite;
+    }
+
+    public override void ApplyHover()
+    {
+        if (_hover == null) return;
+
+        _renderer.sprite = _hover;
+    }
+
+    public override void ApplySelect()
+    {
+        if (_select == null) return;
+
+        _renderer.sprite = _select;
+    }
+
+    public override void ApplyHoverSelect()
+    {
+        if (_hoverSelect == null)
+            ApplySelect();
+        else
+            _renderer.sprite = _hoverSelect;
+    }
+}
+//---------------------------------------------------------------------------------------------------------------------
+[System.Serializable]
+public class OBVAnimation : OBVisual
+{
+    [SerializeField, AllowNesting, Required]
+        private Animator _animator;
+
+    public override void Initialize()
+    {
+        AnimatorOverrideController ac;
+        
+    }
 }
 //---------------------------------------------------------------------------------------------------------------------
 [System.Serializable]
@@ -224,9 +369,10 @@ public class OBVMaterial2D : OBVisual
     public override void ApplyHoverSelect()
     {
         if (_hoverSelect == null)
-            _renderer.material = _select;
+            ApplySelect();
         else
             _renderer.material = _hoverSelect;
     }
 }
+
 
