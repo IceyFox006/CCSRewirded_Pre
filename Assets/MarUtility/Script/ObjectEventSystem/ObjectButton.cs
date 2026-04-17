@@ -324,9 +324,37 @@ public class OBVAnimation : OBVisual
     [SerializeField, AllowNesting, Required, OnValueChanged("OnVCC_AnimatorOC"), InspectorName("Animation OC"), Tooltip("Must override the \"OBJECT_BUTTON_AC\".")]
         private AnimatorOverrideController _animatorOC;
 
+    [SerializeField, Tooltip("Invokes events at the end of the animation instead of the beginning.")]
+        private bool _invokeAtEndOfAnimation = true; //!UNIMPLEMENTED
+
     public override void Initialize()
     {
         _animator.runtimeAnimatorController = _animatorOC;
+    }
+
+    public override void Reset()
+    {
+        _animator.SetBool("IS_HOVERED", false);
+        _animator.SetBool("IS_SELECTED", false);
+    }
+
+    public override void ApplyHover()
+    {
+        _animator.SetBool("IS_HOVERED", true);
+        _animator.SetBool("IS_SELECTED", false);
+    }
+
+
+    public override void ApplySelect()
+    {
+        _animator.SetBool("IS_HOVERED", false);
+        _animator.SetBool("IS_SELECTED", true);
+    }
+
+    public override void ApplyHoverSelect()
+    {
+        _animator.SetBool("IS_HOVERED", true);
+        _animator.SetBool("IS_SELECTED", true);
     }
 
     #region Inspector

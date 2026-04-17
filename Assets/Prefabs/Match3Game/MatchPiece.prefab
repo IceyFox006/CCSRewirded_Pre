@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2666821836400014675}
   - component: {fileID: 6764485995416104325}
+  - component: {fileID: 1841482041141359369}
   m_Layer: 0
   m_Name: MatchPiece
   m_TagString: Untagged
@@ -47,12 +48,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectButton
   _interactable: 1
   _navigation:
-    _type: 0
+    _type: 100
     _up: {fileID: 0}
     _down: {fileID: 0}
     _left: {fileID: 0}
     _right: {fileID: 0}
-  _visualType: 0
+  _visualType: 4096
+  _colorVisual:
+    _renderer: {fileID: 581035029774168476}
+    _hover: {r: 1, g: 0, b: 0, a: 1}
+    _select: {r: 1, g: 0.5170796, b: 0, a: 1}
+    _hoverSelect: {r: 0.08652687, g: 1, b: 0, a: 1}
+  _spriteVisual:
+    _renderer: {fileID: 581035029774168476}
+    _hover: {fileID: 21300000, guid: e07f2efbc7c13334a919cdeb2089d216, type: 3}
+    _select: {fileID: 21300000, guid: b532d84e9916d85468313eab6edae950, type: 3}
+    _hoverSelect: {fileID: 21300000, guid: b8fbedada7b78ad43b428e437a0a742c, type: 3}
+  _animationVisual:
+    _animator: {fileID: 1841482041141359369}
+    _animatorOC: {fileID: 22100000, guid: 0b06a22601af3b648abfe95ea5a2ef9e, type: 2}
   _material2DVisual:
     _renderer: {fileID: 581035029774168476}
     _hover: {fileID: 2100000, guid: 8bc26d6478d6fa244af52c0167c310b6, type: 2}
@@ -74,6 +88,28 @@ MonoBehaviour:
   _onHoverExit:
     m_PersistentCalls:
       m_Calls: []
+--- !u!95 &1841482041141359369
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5113486474496943851}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: 0b06a22601af3b648abfe95ea5a2ef9e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8860780148800465081
 GameObject:
   m_ObjectHideFlags: 0

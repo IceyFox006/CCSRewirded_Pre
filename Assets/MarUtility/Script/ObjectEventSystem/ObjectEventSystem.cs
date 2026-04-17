@@ -12,6 +12,7 @@ public class ObjectEventSystem : MonoBehaviour
     [SerializeField, BoxGroup("Selection"), MinValue(0), OnValueChanged("OnVCC_IndexReplaced"),Tooltip("The max number of buttons that can be selected at once.")]
         private int _maxNumSelected = 1;
     //Confirm on Select
+    private bool showConfirmOnSelect;
     [SerializeField, BoxGroup("Selection")]
         private bool _confirmOnSelect = false; //!UNIMPLEMENTED
     //Replace Select
@@ -137,6 +138,7 @@ public class ObjectEventSystem : MonoBehaviour
 
             if (_deselectOnConfirm)
                 RemoveSelected(curSelected[i]);
+            Debug.Log("Confirmed");
         }
     }
     #endregion
@@ -168,9 +170,7 @@ public class ObjectEventSystem : MonoBehaviour
     #region Check
     //Returns true if bo can be moved to.
     private bool CanMoveTo(ObjectButton bo)
-    {
-        return (bo != null && bo.Interactable);
-    }
+            => (bo != null && bo.Interactable);
     #endregion
 
     #region Inspector

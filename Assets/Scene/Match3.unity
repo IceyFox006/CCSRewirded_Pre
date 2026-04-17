@@ -183,28 +183,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d8f1fadb5b6e5a4786a16bd69318130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ActMatchPiece
---- !u!95 &52572248
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 52572244}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 0b06a22601af3b648abfe95ea5a2ef9e, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &139976983
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,7 +476,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
       propertyPath: _visualType
-      value: 400
+      value: 4096
       objectReference: {fileID: 0}
     - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
       propertyPath: _navigation._left
@@ -799,7 +777,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
       propertyPath: _visualType
-      value: 400
+      value: 4096
       objectReference: {fileID: 0}
     - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
       propertyPath: _navigation._left
@@ -991,6 +969,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2666821836400014675, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5113486474496943851, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
       propertyPath: m_Name
       value: MatchPiece
@@ -1008,57 +990,9 @@ PrefabInstance:
       value: 4096
       objectReference: {fileID: 0}
     - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
-      propertyPath: _navigation._type
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
       propertyPath: _navigation._right
       value: 
       objectReference: {fileID: 885632061}
-    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
-      propertyPath: _spriteVisual._hover
-      value: 
-      objectReference: {fileID: 21300000, guid: e07f2efbc7c13334a919cdeb2089d216, type: 3}
-    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
-      propertyPath: _colorVisual._hover.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
-      propertyPath: _colorVisual._hover.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
-      propertyPath: _colorVisual._hover.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
-      propertyPath: _colorVisual._hover.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
-      propertyPath: _spriteVisual._select
-      value: 
-      objectReference: {fileID: 21300000, guid: b532d84e9916d85468313eab6edae950, type: 3}
-    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
-      propertyPath: _colorVisual._renderer
-      value: 
-      objectReference: {fileID: 1675138076}
-    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
-      propertyPath: _colorVisual._select.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
-      propertyPath: _colorVisual._select.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
-      propertyPath: _colorVisual._select.g
-      value: 0.5170796
-      objectReference: {fileID: 0}
-    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
-      propertyPath: _colorVisual._select.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
       propertyPath: _materialVisual._hover
       value: 
@@ -1068,41 +1002,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 7da5758d540cc4f4191ad408eb14001b, type: 2}
     - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
-      propertyPath: _spriteVisual._renderer
-      value: 
-      objectReference: {fileID: 1675138076}
-    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
       propertyPath: _materialVisual._renderer
       value: 
       objectReference: {fileID: 1675138076}
-    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
-      propertyPath: _animationVisual._animator
-      value: 
-      objectReference: {fileID: 52572248}
-    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
-      propertyPath: _spriteVisual._hoverSelect
-      value: 
-      objectReference: {fileID: 21300000, guid: b8fbedada7b78ad43b428e437a0a742c, type: 3}
-    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
-      propertyPath: _colorVisual._hoverSelect.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
-      propertyPath: _colorVisual._hoverSelect.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
-      propertyPath: _colorVisual._hoverSelect.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
-      propertyPath: _colorVisual._hoverSelect.r
-      value: 0.08652687
-      objectReference: {fileID: 0}
-    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
-      propertyPath: _animationVisual._animatorOC
-      value: 
-      objectReference: {fileID: 22100000, guid: 0b06a22601af3b648abfe95ea5a2ef9e, type: 2}
     - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
       propertyPath: _materialVisual._hoverSelect
       value: 
@@ -1118,9 +1020,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5113486474496943851, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
       insertIndex: 1
       addedObject: {fileID: 52572247}
-    - targetCorrespondingSourceObject: {fileID: 5113486474496943851, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 52572248}
   m_SourcePrefab: {fileID: 100100000, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
