@@ -23,6 +23,8 @@ public class ObjectButton : MonoBehaviour
         private OBVColor _colorVisual;
     [SerializeField, BoxGroup("Visual"), ShowIf("_visualType", OBVisualType.SPRITE)]
         private OBVSprite _spriteVisual;
+    [SerializeField, BoxGroup("Visual"), ShowIf("_visualType", OBVisualType.ANIMATION)]
+        private OBVAnimation _animationVisual;
     [SerializeField, BoxGroup("Visual"), ShowIf("_visualType", OBVisualType.MATERIAL2D)]
         private OBVMaterial2D _material2DVisual;
     private List<OBVisual> curVisuals = new List<OBVisual>();
@@ -58,19 +60,17 @@ public class ObjectButton : MonoBehaviour
     }
     private void InitializeVisual()
     {
+        //Add visuals.
         if (_visualType.HasFlag(OBVisualType.COLOR))
             curVisuals.Add(_colorVisual);
         if (_visualType.HasFlag(OBVisualType.SPRITE))
             curVisuals.Add(_spriteVisual);
+        if (_visualType.HasFlag(OBVisualType.ANIMATION))
+            curVisuals.Add(_animationVisual);
         if (_visualType.HasFlag(OBVisualType.MATERIAL2D))
             curVisuals.Add(_material2DVisual);
-        //switch (_visualType)
-        //{
-        //    case OBVisualType.COLOR: break;
-        //    case OBVisualType.SPRITE: break;
-        //    case OBVisualType.ANIMATION: break;
-        //    case OBVisualType.MATERIAL2D: curVisual = _materialVisual; break;
-        //}
+
+        //Initialize visuals.
         foreach(OBVisual visual in curVisuals)
             visual.Initialize();
     }
@@ -158,12 +158,12 @@ public class ObjectButton : MonoBehaviour
 }
 [Flags]public enum OBEventType
 {
-    NONE = 000,
-    CONFIRM = 100,
-    SELECT = 200,
-    DESELECT = 210,
-    HOVER_ENTER = 300,
-    HOVER_EXIT = 310,
+    NONE = 0 << 000,
+    CONFIRM = 1 << 100,
+    SELECT = 1 << 200,
+    DESELECT = 1 << 210,
+    HOVER_ENTER = 1 << 300,
+    HOVER_EXIT = 1 << 310,
 }
 
 
@@ -211,12 +211,12 @@ public class OBVisual
 }
 [Flags]public enum OBVisualType
 {
-    NONE = 000,
-    COLOR = 100,
-    SPRITE = 200,
-    ANIMATION = 300,
-    MATERIAL2D = 400,
-    MATERIAL3D = 410,
+    NONE = 0 << 000,
+    COLOR = 1 << 100,
+    SPRITE = 1 << 200,
+    ANIMATION = 1 << 300,
+    MATERIAL2D = 1 << 400,
+    MATERIAL3D = 1 << 410,
 }
 //---------------------------------------------------------------------------------------------------------------------
 [System.Serializable]

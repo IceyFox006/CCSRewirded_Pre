@@ -11,6 +11,9 @@ public class ObjectEventSystem : MonoBehaviour
 
     [SerializeField, BoxGroup("Selection"), MinValue(0), OnValueChanged("OnValueChangedCallback_IndexReplaced"),Tooltip("The max number of buttons that can be selected at once.")]
         private int _maxNumSelected = 1;
+    //Confirm on Select
+    [SerializeField, BoxGroup("Selection")]
+        private bool _confirmOnSelect = false; //!UNIMPLEMENTED
     //Replace Select
     [SerializeField, BoxGroup("Selection"), Tooltip("Instead of preventing selection, deselects one of the selected buttons, to select the curHover on select.")]
         private bool _replaceSelection = false;
