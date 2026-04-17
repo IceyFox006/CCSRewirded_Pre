@@ -144,7 +144,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ObjectButton_AC
+  m_Name: OBJECT_BUTTON_AC
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: isHovered

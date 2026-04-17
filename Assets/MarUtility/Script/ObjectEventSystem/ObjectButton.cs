@@ -1,6 +1,7 @@
 using NaughtyAttributes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -320,12 +321,27 @@ public class OBVAnimation : OBVisual
 {
     [SerializeField, AllowNesting, Required]
         private Animator _animator;
+    [SerializeField, AllowNesting, Required, OnValueChanged("OnVCC_AnimatorOC"), InspectorName("Animation OC"), Tooltip("Must override the \"OBJECT_BUTTON_AC\".")]
+        private AnimatorOverrideController _animatorOC;
 
     public override void Initialize()
     {
-        AnimatorOverrideController ac;
-        
+        _animator.runtimeAnimatorController = _animatorOC;
     }
+
+    #region Inspector
+    private void OnVCC_AnimatorOC()
+    {
+        if (_animatorOC == null) return;
+
+        if (!_animatorOC.runtimeAnimatorController.name.Equals("OBJECT_BUTTON_AC"))
+        {
+            Debug.LogError(_animator.gameObject.name + "'s AnimationOC must be an animator override controller of \"OBJECT_BUTTON_AC\".");
+            _animatorOC = null;
+            return;
+        }
+    }
+    #endregion
 }
 //---------------------------------------------------------------------------------------------------------------------
 [System.Serializable]

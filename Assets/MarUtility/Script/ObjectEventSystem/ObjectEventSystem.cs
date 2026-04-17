@@ -9,7 +9,7 @@ public class ObjectEventSystem : MonoBehaviour
     [SerializeField, BoxGroup("Selection")]
         private ObjectButton _firstSelected;
 
-    [SerializeField, BoxGroup("Selection"), MinValue(0), OnValueChanged("OnValueChangedCallback_IndexReplaced"),Tooltip("The max number of buttons that can be selected at once.")]
+    [SerializeField, BoxGroup("Selection"), MinValue(0), OnValueChanged("OnVCC_IndexReplaced"),Tooltip("The max number of buttons that can be selected at once.")]
         private int _maxNumSelected = 1;
     //Confirm on Select
     [SerializeField, BoxGroup("Selection")]
@@ -17,7 +17,7 @@ public class ObjectEventSystem : MonoBehaviour
     //Replace Select
     [SerializeField, BoxGroup("Selection"), Tooltip("Instead of preventing selection, deselects one of the selected buttons, to select the curHover on select.")]
         private bool _replaceSelection = false;
-    [SerializeField, BoxGroup("Selection"), MinValue(0), ShowIf("_replaceSelection"), OnValueChanged("OnValueChangedCallback_IndexReplaced"), Tooltip("The index of the button that will be deselected.")]
+    [SerializeField, BoxGroup("Selection"), MinValue(0), ShowIf("_replaceSelection"), OnValueChanged("OnVCC_IndexReplaced"), Tooltip("The index of the button that will be deselected.")]
         private int _indexReplaced = 0;
     //Deselect Confirm
     [SerializeField, BoxGroup("Selection"), Tooltip("When confirmed, all selected buttons will be deselected.")]
@@ -174,7 +174,7 @@ public class ObjectEventSystem : MonoBehaviour
     #endregion
 
     #region Inspector
-    private void OnValueChangedCallback_IndexReplaced()
+    private void OnVCC_IndexReplaced()
     {
         if (_indexReplaced >= _maxNumSelected)
             _indexReplaced = _maxNumSelected;
