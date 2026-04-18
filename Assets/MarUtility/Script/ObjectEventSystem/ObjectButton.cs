@@ -31,6 +31,8 @@ public class ObjectButton : MonoBehaviour
     private List<OBVisual> curVisuals = new List<OBVisual>();
 
     //Event
+    [SerializeField, Tooltip("Invokes events at the end of the confirm visual instead of the beginning.")]
+        private bool _invokeAtEndOfAnimation = true; //!UNIMPLEMENTED
     [SerializeField, EnumFlags, BoxGroup("Event")]
         private OBEventType _eventTypes;
     [SerializeField, BoxGroup("Event"), ShowIf("_eventTypes", OBEventType.CONFIRM)]
@@ -323,9 +325,6 @@ public class OBVAnimation : OBVisual
         private Animator _animator;
     [SerializeField, AllowNesting, Required, OnValueChanged("OnVCC_AnimatorOC"), InspectorName("Animation OC"), Tooltip("Must override the \"OBJECT_BUTTON_AC\".")]
         private AnimatorOverrideController _animatorOC;
-
-    [SerializeField, Tooltip("Invokes events at the end of the animation instead of the beginning.")]
-        private bool _invokeAtEndOfAnimation = true; //!UNIMPLEMENTED
 
     public override void Initialize()
     {

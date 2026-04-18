@@ -12,9 +12,9 @@ public class ObjectEventSystem : MonoBehaviour
     [SerializeField, BoxGroup("Selection"), MinValue(0), OnValueChanged("OnVCC_IndexReplaced"),Tooltip("The max number of buttons that can be selected at once.")]
         private int _maxNumSelected = 1;
     //Confirm on Select
-    private bool showConfirmOnSelect;
-    [SerializeField, BoxGroup("Selection")]
-        private bool _confirmOnSelect = false; //!UNIMPLEMENTED
+    private bool showConfirmOnSelect = true;
+    [SerializeField, BoxGroup("Selection"), ShowIf("showConfirmOnSelect")]
+        private bool _confirmOnSelect = false;
     //Replace Select
     [SerializeField, BoxGroup("Selection"), Tooltip("Instead of preventing selection, deselects one of the selected buttons, to select the curHover on select.")]
         private bool _replaceSelection = false;
@@ -118,7 +118,12 @@ public class ObjectEventSystem : MonoBehaviour
         }
 
         if (curSelected.Count < _maxNumSelected) //Select if there is room.
+        {
             AddSelected(curHover);
+
+            if (_confirmOnSelect)
+                ConfirmSelected();
+        }
         else
         {
             if (_replaceSelection)
@@ -132,14 +137,7 @@ public class ObjectEventSystem : MonoBehaviour
     //Confirm button.
     private void Confirm_performed(InputAction.CallbackContext obj)
     {
-       for (int i = curSelected.Count - 1; i >= 0; i--)
-        {
-            curSelected[i].OnConfirm();
-
-            if (_deselectOnConfirm)
-                RemoveSelected(curSelected[i]);
-            Debug.Log("Confirmed");
-        }
+        ConfirmSelected();
     }
     #endregion
 
@@ -165,6 +163,17 @@ public class ObjectEventSystem : MonoBehaviour
         ob.OnDeselect();
         curSelected.Remove(ob);
     }
+
+    private void ConfirmSelected()
+    {
+        for (int i = curSelected.Count - 1; i >= 0; i--)
+        {
+            curSelected[i].OnConfirm();
+
+            if (_deselectOnConfirm)
+                RemoveSelected(curSelected[i]);
+        }
+    }
     #endregion
 
     #region Check
@@ -178,6 +187,10 @@ public class ObjectEventSystem : MonoBehaviour
     {
         if (_indexReplaced >= _maxNumSelected)
             _indexReplaced = _maxNumSelected;
+
+        showConfirmOnSelect = _maxNumSelected == 1;
+        if (!showConfirmOnSelect)
+            _confirmOnSelect = false;
     }
     #endregion
 }
