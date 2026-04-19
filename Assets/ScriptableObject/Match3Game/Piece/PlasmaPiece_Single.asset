@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6db1c40c7e156eb4e9de94e43e6e2f7d, type: 3}
+  m_Name: PlasmaPiece_Single
+  m_EditorClassIdentifier: Assembly-CSharp::MatchPieceSO
+  _element: {fileID: 11400000, guid: bbf65c41cbcccaa43b5ed51a7546f564, type: 2}
+  _breakEffects: 
+  _sprite: {fileID: 21300000, guid: 29b09fe8e0b187745a35b1e5c88af7a9, type: 3}
