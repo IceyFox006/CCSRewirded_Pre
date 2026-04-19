@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class ObjectButton : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class ObjectButton : MonoBehaviour
         private OBVisualType _visualType;
     [SerializeField, BoxGroup("Visual"), ShowIf("_visualType", OBVisualType.COLOR_SPRITE)]
         private OBVColorSprite _colorSpriteVisual;
+    [SerializeField, BoxGroup("Visual"), ShowIf("_visualType", OBVisualType.COLOR_IMAGE)]
+        private OBVColorImage _colorImageVisual;
     [SerializeField, BoxGroup("Visual"), ShowIf("_visualType", OBVisualType.SPRITE)]
         private OBVSprite _spriteVisual;
     [SerializeField, BoxGroup("Visual"), ShowIf("_visualType", OBVisualType.ANIMATION)]
@@ -293,6 +296,50 @@ public class OBVColorSprite : OBVColor
 {
     [SerializeField, AllowNesting, Required]
         private SpriteRenderer _renderer;
+
+    public override void Initialize(ObjectButton ob)
+    {
+        base.Initialize(ob);
+        defaultColor = _renderer.color;
+    }
+
+    public override void Reset()
+    {
+        _renderer.color = defaultColor;
+    }
+
+    public override void ApplyHover()
+    {
+        if (_hover == null) return;
+
+        _renderer.color = _hover;
+    }
+
+    public override void ApplySelect()
+    {
+        if (_select == null) return;
+
+        _renderer.color = _select;
+    }
+
+    public override void ApplyHoverSelect()
+    {
+        if (_hoverSelect == null)
+            ApplySelect();
+        else
+            _renderer.color = _hoverSelect;
+    }
+    public override void ApplyConfirm()
+    {
+        _renderer.color = _confirm;
+    }
+}
+//---------------------------------------------------------------------------------------------------------------------
+[System.Serializable]
+public class OBVColorImage : OBVColor
+{
+    [SerializeField, AllowNesting, Required]
+    private Image _renderer;
 
     public override void Initialize(ObjectButton ob)
     {
