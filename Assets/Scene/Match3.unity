@@ -183,6 +183,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d8f1fadb5b6e5a4786a16bd69318130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ActMatchPiece
+--- !u!114 &52572249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52572244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 711790b5d3699dc4e87e48a07b9225a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GenericMethods
 --- !u!1 &139976983
 GameObject:
   m_ObjectHideFlags: 0
@@ -800,6 +812,10 @@ PrefabInstance:
       value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _eventTypes
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
       propertyPath: _visualType
       value: 4096
       objectReference: {fileID: 0}
@@ -863,6 +879,38 @@ PrefabInstance:
       propertyPath: _colorVisual.confirmVisualDuration
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _onConfirmEvents.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _onConfirmEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _onConfirmEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 885632066}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _onConfirmEvents.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _onConfirmEvents.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DebugString
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _onConfirmEvents.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GenericMethods, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _onConfirmEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Confirmed
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _onConfirmEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -870,6 +918,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5113486474496943851, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
       insertIndex: 1
       addedObject: {fileID: 885632065}
+    - targetCorrespondingSourceObject: {fileID: 5113486474496943851, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 885632066}
   m_SourcePrefab: {fileID: 100100000, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
 --- !u!114 &885632061 stripped
 MonoBehaviour:
@@ -909,6 +960,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d8f1fadb5b6e5a4786a16bd69318130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ActMatchPiece
+--- !u!114 &885632066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885632063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 711790b5d3699dc4e87e48a07b9225a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GenericMethods
 --- !u!1 &1177077450
 GameObject:
   m_ObjectHideFlags: 0
@@ -1031,7 +1094,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
       propertyPath: _eventTypes
-      value: 0
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
       propertyPath: _visualType
@@ -1074,6 +1137,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1675138076}
     - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _invokeAtEndOfConfirmVisual
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
       propertyPath: _materialVisual._hoverSelect
       value: 
       objectReference: {fileID: 2100000, guid: 41972679ecec2424090c3e7da3bad409, type: 2}
@@ -1085,6 +1152,38 @@ PrefabInstance:
       propertyPath: _colorVisual.confirmVisualDuration
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _onConfirmEvents.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _onConfirmEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _onConfirmEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 52572249}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _onConfirmEvents.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _onConfirmEvents.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DebugString
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _onConfirmEvents.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GenericMethods, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _onConfirmEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: First confirmed
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _onConfirmEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1092,6 +1191,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5113486474496943851, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
       insertIndex: 1
       addedObject: {fileID: 52572247}
+    - targetCorrespondingSourceObject: {fileID: 5113486474496943851, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 52572249}
   m_SourcePrefab: {fileID: 100100000, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

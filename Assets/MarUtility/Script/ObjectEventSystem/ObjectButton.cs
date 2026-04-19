@@ -1,4 +1,3 @@
-using JetBrains.Annotations;
 using NaughtyAttributes;
 using System;
 using System.Collections;
@@ -38,20 +37,21 @@ public class ObjectButton : MonoBehaviour
     [SerializeField, EnumFlags, BoxGroup("Event")]
         private OBEventType _eventTypes;
     [SerializeField, BoxGroup("Event"), ShowIf("_eventTypes", OBEventType.CONFIRM)]
-        private UnityEvent _onConfirm;
+        private UnityEvent _onConfirmEvents;
     [SerializeField, BoxGroup("Event"), ShowIf("_eventTypes", OBEventType.SELECT)]
-        private UnityEvent _onSelect;
+        private UnityEvent _onSelectEvents;
     [SerializeField, BoxGroup("Event"), ShowIf("_eventTypes", OBEventType.DESELECT)]
-        private UnityEvent _onDeselect;
+        private UnityEvent _onDeselectEvents;
     [SerializeField, BoxGroup("Event"), ShowIf("_eventTypes", OBEventType.HOVER_ENTER)]
-        private UnityEvent _onHoverEnter;
+        private UnityEvent _onHoverEnterEvents;
     [SerializeField, BoxGroup("Event"), ShowIf("_eventTypes", OBEventType.HOVER_EXIT)]
-        private UnityEvent _onHoverExit;
+        private UnityEvent _onHoverExitEvents;
 
     #region GS
     public bool Interactable { get => _interactable; set => _interactable = value; }
     public OBNavigation Navigation { get => _navigation; set => _navigation = value; }
     public bool IsSelected { get => isSelected; set => isSelected = value; }
+    public UnityEvent OnConfirmEvents { get => _onConfirmEvents; set => _onConfirmEvents = value; }
 
     #endregion
     #region Initialize
@@ -77,14 +77,15 @@ public class ObjectButton : MonoBehaviour
 
         //Initialize visuals.
         foreach(OBVisual visual in curVisuals)
-            visual.Initialize();
+            visual.Initialize(this);
     }
     #endregion
     #region Event
     //Invoke confirm events and update visuals.
     public void OnConfirm()
     {
-        _onConfirm.Invoke();
+        if (!_invokeAtEndOfConfirmVisual)
+            _onConfirmEvents.Invoke();
 
         foreach (OBVisual visual in curVisuals)
             StartCoroutine(ConfirmCD(visual));
@@ -95,7 +96,7 @@ public class ObjectButton : MonoBehaviour
     {
         isSelected = true;
 
-        _onSelect.Invoke();
+        _onSelectEvents.Invoke();
 
         if (isHovered)
         {
@@ -114,7 +115,7 @@ public class ObjectButton : MonoBehaviour
     {
         isSelected = false;
 
-        _onDeselect.Invoke();
+        _onDeselectEvents.Invoke();
         if (isHovered)
         {
             foreach (OBVisual visual in curVisuals)
@@ -132,7 +133,7 @@ public class ObjectButton : MonoBehaviour
     {
         isHovered = true;
 
-        _onHoverEnter.Invoke();
+        _onHoverEnterEvents.Invoke();
         if (!isSelected)
         {
             foreach (OBVisual visual in curVisuals)
@@ -150,7 +151,7 @@ public class ObjectButton : MonoBehaviour
     {
         isHovered = false;
 
-        _onHoverExit.Invoke();
+        _onHoverExitEvents.Invoke();
         if (!isSelected)
         {
             foreach (OBVisual visual in curVisuals)
@@ -169,6 +170,9 @@ public class ObjectButton : MonoBehaviour
         visual.ApplyConfirm();
 
         yield return new WaitForSeconds(visual.ConfirmVisualDuration);
+
+        if (_invokeAtEndOfConfirmVisual)
+            visual.Ob.OnConfirmEvents.Invoke();
 
         if (isHovered && isSelected)
             visual.ApplyHoverSelect();
@@ -227,14 +231,19 @@ public enum OBNavigationType
 [System.Serializable]
 public class OBVisual
 {
+    protected ObjectButton ob;
     [SerializeField, AllowNesting, MinValue(0), ShowIf("ShowIf_ConfirmVisualDuration"), Tooltip("How many seconds the confirm visual lasts.")]
         protected float _confirmVisualDuration = 0.1f;
 
     #region GS
     public float ConfirmVisualDuration { get => _confirmVisualDuration; set => _confirmVisualDuration = value; }
+    public ObjectButton Ob { get => ob; set => ob = value; }
     #endregion
 
-    public virtual void Initialize() { }
+    public virtual void Initialize(ObjectButton ob) 
+    {
+        this.ob = ob;
+    }
     public virtual void Reset() { }
     public virtual void ApplyHover() { }
     public virtual void ApplySelect() { }
@@ -279,8 +288,9 @@ public class OBVColor : OBVisual
     [SerializeField, AllowNesting]
         private Color _confirm = Color.white;
 
-    public override void Initialize()
+    public override void Initialize(ObjectButton ob)
     {
+        base.Initialize(ob);
         defaultColor = _renderer.color;
     }
 
@@ -333,8 +343,9 @@ public class OBVSprite : OBVisual
     [SerializeField, AllowNesting]
         private Sprite _confirm;
 
-    public override void Initialize()
+    public override void Initialize(ObjectButton ob)
     {
+        base.Initialize(ob);
         defaultSprite = _renderer.sprite;
     }
 
@@ -381,8 +392,9 @@ public class OBVAnimation : OBVisual
     [SerializeField, AllowNesting, Required, OnValueChanged("OnVCC_AnimatorOC"), InspectorName("Animation OC"), Tooltip("Must override the \"OBJECT_BUTTON_AC\".")]
         private AnimatorOverrideController _animatorOC;
 
-    public override void Initialize()
+    public override void Initialize(ObjectButton ob)
     {
+        base.Initialize(ob);
         _animator.runtimeAnimatorController = _animatorOC;
     }
 
@@ -448,8 +460,9 @@ public class OBVMaterial2D : OBVisual
     [SerializeField, AllowNesting]
         private Material _confirm;
 
-    public override void Initialize()
+    public override void Initialize(ObjectButton ob)
     {
+        base.Initialize(ob);
         defaultMaterial = _renderer.material;
     }
     public override void Reset()
