@@ -1,7 +1,8 @@
+using JetBrains.Annotations;
 using NaughtyAttributes;
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,6 +10,7 @@ public class ObjectButton : MonoBehaviour
 {
     [SerializeField]
         private bool _interactable = true;
+
     private bool isHovered = false;
     private bool isSelected = false;
 
@@ -32,7 +34,7 @@ public class ObjectButton : MonoBehaviour
 
     //Event
     [SerializeField, Tooltip("Invokes events at the end of the confirm visual instead of the beginning.")]
-        private bool _invokeAtEndOfAnimation = true; //!UNIMPLEMENTED
+        private bool _invokeAtEndOfConfirmVisual = true; //!UNIMPLEMENTED
     [SerializeField, EnumFlags, BoxGroup("Event")]
         private OBEventType _eventTypes;
     [SerializeField, BoxGroup("Event"), ShowIf("_eventTypes", OBEventType.CONFIRM)]
@@ -83,6 +85,9 @@ public class ObjectButton : MonoBehaviour
     public void OnConfirm()
     {
         _onConfirm.Invoke();
+
+        foreach (OBVisual visual in curVisuals)
+            StartCoroutine(ConfirmCD(visual));
     }
 
     //Invoke select events and update visuals.
@@ -158,6 +163,22 @@ public class ObjectButton : MonoBehaviour
         }
     }
     #endregion
+
+    private IEnumerator ConfirmCD(OBVisual visual)
+    {
+        visual.ApplyConfirm();
+
+        yield return new WaitForSeconds(visual.ConfirmVisualDuration);
+
+        if (isHovered && isSelected)
+            visual.ApplyHoverSelect();
+        else if (isHovered)
+            visual.ApplyHover();
+        else if (isSelected)
+            visual.ApplySelect();
+        else
+            visual.Reset();
+    }
 }
 [Flags]public enum OBEventType
 {
@@ -206,11 +227,30 @@ public enum OBNavigationType
 [System.Serializable]
 public class OBVisual
 {
+    [SerializeField, AllowNesting, MinValue(0), ShowIf("ShowIf_ConfirmVisualDuration"), Tooltip("How many seconds the confirm visual lasts.")]
+        protected float _confirmVisualDuration = 0.1f;
+
+    #region GS
+    public float ConfirmVisualDuration { get => _confirmVisualDuration; set => _confirmVisualDuration = value; }
+    #endregion
+
     public virtual void Initialize() { }
     public virtual void Reset() { }
     public virtual void ApplyHover() { }
     public virtual void ApplySelect() { }
     public virtual void ApplyHoverSelect() { }
+    public virtual void ApplyConfirm() { }
+
+    #region Inspector
+    private bool ShowIf_ConfirmVisualDuration()
+    {
+        if (GetType().Equals(typeof(OBVColor))) return true;
+        if (GetType().Equals(typeof(OBVSprite))) return true;
+        if (GetType().Equals(typeof(OBVMaterial2D))) return true;
+
+        return false;
+    }
+    #endregion
 }
 [Flags]public enum OBVisualType
 {
@@ -219,23 +259,25 @@ public class OBVisual
     SPRITE = 1 << 200,
     ANIMATION = 1 << 300,
     MATERIAL2D = 1 << 400,
-    MATERIAL3D = 1 << 410,
+    MATERIAL3D = 1 << 410, //!UNIMPLEMENTED
 }
 //---------------------------------------------------------------------------------------------------------------------
 [System.Serializable]
 public class OBVColor : OBVisual
 {
     [SerializeField, AllowNesting, Required]
-    private SpriteRenderer _renderer;
+        private SpriteRenderer _renderer;
     private Color defaultColor;
 
     [Header("Color")]
     [SerializeField, AllowNesting]
-    private Color _hover = Color.white;
+        private Color _hover = Color.white;
     [SerializeField, AllowNesting]
-    private Color _select = Color.white;
+        private Color _select = Color.white;
     [SerializeField, AllowNesting, Tooltip("Activated when hovering over a selected button. If this is not set, select will be activated.")]
-    private Color _hoverSelect = Color.white;
+        private Color _hoverSelect = Color.white;
+    [SerializeField, AllowNesting]
+        private Color _confirm = Color.white;
 
     public override void Initialize()
     {
@@ -268,6 +310,10 @@ public class OBVColor : OBVisual
         else
             _renderer.color = _hoverSelect;
     }
+    public override void ApplyConfirm()
+    {
+        _renderer.color = _confirm;
+    }
 }
 //---------------------------------------------------------------------------------------------------------------------
 [System.Serializable]
@@ -284,6 +330,8 @@ public class OBVSprite : OBVisual
         private Sprite _select;
     [SerializeField, AllowNesting, Tooltip("Activated when hovering over a selected button. If this is not set, select will be activated.")]
         private Sprite _hoverSelect;
+    [SerializeField, AllowNesting]
+        private Sprite _confirm;
 
     public override void Initialize()
     {
@@ -315,6 +363,13 @@ public class OBVSprite : OBVisual
             ApplySelect();
         else
             _renderer.sprite = _hoverSelect;
+    }
+
+    public override void ApplyConfirm()
+    {
+        if (_confirm == null) return;
+
+        _renderer.sprite = _confirm;
     }
 }
 //---------------------------------------------------------------------------------------------------------------------
@@ -356,6 +411,11 @@ public class OBVAnimation : OBVisual
         _animator.SetBool("IS_SELECTED", true);
     }
 
+    public override void ApplyConfirm()
+    {
+        _animator.Play("CONFIRM");
+        _confirmVisualDuration = _animator.GetCurrentAnimatorClipInfo(0).Length;
+    }
     #region Inspector
     private void OnVCC_AnimatorOC()
     {
@@ -385,6 +445,8 @@ public class OBVMaterial2D : OBVisual
         private Material _select;
     [SerializeField, AllowNesting, Tooltip("Activated when hovering over a selected button. If this is not set, select will be activated.")]
         private Material _hoverSelect;
+    [SerializeField, AllowNesting]
+        private Material _confirm;
 
     public override void Initialize()
     {
@@ -415,6 +477,12 @@ public class OBVMaterial2D : OBVisual
             ApplySelect();
         else
             _renderer.material = _hoverSelect;
+    }
+    public override void ApplyConfirm()
+    {
+        if (_confirm == null) return;
+
+        _renderer.material = _confirm;
     }
 }
 

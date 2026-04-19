@@ -12,8 +12,7 @@ public class ObjectEventSystem : MonoBehaviour
     [SerializeField, BoxGroup("Selection"), MinValue(0), OnValueChanged("OnVCC_IndexReplaced"),Tooltip("The max number of buttons that can be selected at once.")]
         private int _maxNumSelected = 1;
     //Confirm on Select
-    private bool showConfirmOnSelect = true;
-    [SerializeField, BoxGroup("Selection"), ShowIf("showConfirmOnSelect")]
+    [SerializeField, BoxGroup("Selection"), ShowIf("ShowConfirmOnSelect")]
         private bool _confirmOnSelect = false;
     //Replace Select
     [SerializeField, BoxGroup("Selection"), Tooltip("Instead of preventing selection, deselects one of the selected buttons, to select the curHover on select.")]
@@ -158,20 +157,22 @@ public class ObjectEventSystem : MonoBehaviour
     }
 
     //Removes ob from curSelected and deselects it.
-    private void RemoveSelected(ObjectButton ob)
+    private ObjectButton RemoveSelected(ObjectButton ob)
     {
         ob.OnDeselect();
         curSelected.Remove(ob);
+        return ob;
     }
 
+    //Invokes confirm on all selected buttons.
     private void ConfirmSelected()
     {
         for (int i = curSelected.Count - 1; i >= 0; i--)
         {
-            curSelected[i].OnConfirm();
-
             if (_deselectOnConfirm)
-                RemoveSelected(curSelected[i]);
+                RemoveSelected(curSelected[i]).OnConfirm();
+            else
+                curSelected[i].OnConfirm();
         }
     }
     #endregion
@@ -187,10 +188,17 @@ public class ObjectEventSystem : MonoBehaviour
     {
         if (_indexReplaced >= _maxNumSelected)
             _indexReplaced = _maxNumSelected;
+    }
 
-        showConfirmOnSelect = _maxNumSelected == 1;
-        if (!showConfirmOnSelect)
+    private bool ShowConfirmOnSelect()
+    {
+        if (_maxNumSelected == 1)
+            return true;
+        else
+        {
             _confirmOnSelect = false;
+            return false;
+        }
     }
     #endregion
 }

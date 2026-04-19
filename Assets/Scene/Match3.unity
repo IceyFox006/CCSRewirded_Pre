@@ -495,6 +495,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 8bc26d6478d6fa244af52c0167c310b6, type: 2}
     - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _spriteVisual._confirm
+      value: 
+      objectReference: {fileID: 21300000, guid: 29b09fe8e0b187745a35b1e5c88af7a9, type: 3}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _colorVisual._confirm.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _colorVisual._confirm.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _colorVisual._confirm.g
+      value: 0.26953864
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _colorVisual._confirm.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
       propertyPath: _materialVisual._select
       value: 
       objectReference: {fileID: 2100000, guid: 7da5758d540cc4f4191ad408eb14001b, type: 2}
@@ -510,6 +530,10 @@ PrefabInstance:
       propertyPath: _materialVisual._hoverSelect
       value: 
       objectReference: {fileID: 2100000, guid: 41972679ecec2424090c3e7da3bad409, type: 2}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _colorVisual.confirmVisualDuration
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -800,6 +824,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 8bc26d6478d6fa244af52c0167c310b6, type: 2}
     - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _spriteVisual._confirm
+      value: 
+      objectReference: {fileID: 21300000, guid: 29b09fe8e0b187745a35b1e5c88af7a9, type: 3}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _colorVisual._confirm.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _colorVisual._confirm.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _colorVisual._confirm.g
+      value: 0.26953864
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _colorVisual._confirm.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
       propertyPath: _materialVisual._select
       value: 
       objectReference: {fileID: 2100000, guid: 7da5758d540cc4f4191ad408eb14001b, type: 2}
@@ -815,6 +859,10 @@ PrefabInstance:
       propertyPath: _materialVisual._hoverSelect
       value: 
       objectReference: {fileID: 2100000, guid: 41972679ecec2424090c3e7da3bad409, type: 2}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _colorVisual.confirmVisualDuration
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -894,7 +942,7 @@ MonoBehaviour:
   _maxNumSelected: 1
   _confirmOnSelect: 0
   _replaceSelection: 0
-  _indexReplaced: 0
+  _indexReplaced: 1
   _deselectOnConfirm: 1
   _enableInputOnInitialize: 1
   _inputActions: {fileID: -944628639613478452, guid: 9467f5a773a660e4ea8b97b80e1911f0, type: 3}
@@ -998,6 +1046,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 8bc26d6478d6fa244af52c0167c310b6, type: 2}
     - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _spriteVisual._confirm
+      value: 
+      objectReference: {fileID: 21300000, guid: 29b09fe8e0b187745a35b1e5c88af7a9, type: 3}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _colorVisual._confirm.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _colorVisual._confirm.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _colorVisual._confirm.g
+      value: 0.26953864
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _colorVisual._confirm.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
       propertyPath: _materialVisual._select
       value: 
       objectReference: {fileID: 2100000, guid: 7da5758d540cc4f4191ad408eb14001b, type: 2}
@@ -1013,6 +1081,10 @@ PrefabInstance:
       propertyPath: _animationVisual._animationOC
       value: 
       objectReference: {fileID: 22100000, guid: 0b06a22601af3b648abfe95ea5a2ef9e, type: 2}
+    - target: {fileID: 6764485995416104325, guid: 1f4cfa3ee31d60a448a57f81bc9d8e5a, type: 3}
+      propertyPath: _colorVisual.confirmVisualDuration
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
