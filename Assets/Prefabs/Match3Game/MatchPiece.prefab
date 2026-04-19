@@ -54,38 +54,46 @@ MonoBehaviour:
     _left: {fileID: 0}
     _right: {fileID: 0}
   _visualType: 4096
-  _colorVisual:
+  _colorSpriteVisual:
+    _confirmVisualDuration: 0.1
+    _hover: {r: 1, g: 1, b: 1, a: 1}
+    _select: {r: 1, g: 1, b: 1, a: 1}
+    _hoverSelect: {r: 1, g: 1, b: 1, a: 1}
+    _confirm: {r: 1, g: 1, b: 1, a: 1}
     _renderer: {fileID: 581035029774168476}
-    _hover: {r: 1, g: 0, b: 0, a: 1}
-    _select: {r: 1, g: 0.5170796, b: 0, a: 1}
-    _hoverSelect: {r: 0.08652687, g: 1, b: 0, a: 1}
   _spriteVisual:
+    _confirmVisualDuration: 0.1
     _renderer: {fileID: 581035029774168476}
     _hover: {fileID: 21300000, guid: e07f2efbc7c13334a919cdeb2089d216, type: 3}
     _select: {fileID: 21300000, guid: b532d84e9916d85468313eab6edae950, type: 3}
     _hoverSelect: {fileID: 21300000, guid: b8fbedada7b78ad43b428e437a0a742c, type: 3}
+    _confirm: {fileID: 0}
   _animationVisual:
+    _confirmVisualDuration: 0.1
     _animator: {fileID: 1841482041141359369}
     _animatorOC: {fileID: 22100000, guid: 0b06a22601af3b648abfe95ea5a2ef9e, type: 2}
   _material2DVisual:
+    _confirmVisualDuration: 0.1
     _renderer: {fileID: 581035029774168476}
     _hover: {fileID: 2100000, guid: 8bc26d6478d6fa244af52c0167c310b6, type: 2}
     _select: {fileID: 2100000, guid: 7da5758d540cc4f4191ad408eb14001b, type: 2}
     _hoverSelect: {fileID: 2100000, guid: 41972679ecec2424090c3e7da3bad409, type: 2}
+    _confirm: {fileID: 0}
+  _invokeAtEndOfConfirmVisual: 1
   _eventTypes: 0
-  _onConfirm:
+  _onConfirmEvents:
     m_PersistentCalls:
       m_Calls: []
-  _onSelect:
+  _onSelectEvents:
     m_PersistentCalls:
       m_Calls: []
-  _onDeselect:
+  _onDeselectEvents:
     m_PersistentCalls:
       m_Calls: []
-  _onHoverEnter:
+  _onHoverEnterEvents:
     m_PersistentCalls:
       m_Calls: []
-  _onHoverExit:
+  _onHoverExitEvents:
     m_PersistentCalls:
       m_Calls: []
 --- !u!95 &1841482041141359369

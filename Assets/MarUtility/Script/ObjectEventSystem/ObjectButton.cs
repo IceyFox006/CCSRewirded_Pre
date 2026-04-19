@@ -21,8 +21,8 @@ public class ObjectButton : MonoBehaviour
     //Visual
     [SerializeField, BoxGroup("Visual"), EnumFlags]
         private OBVisualType _visualType;
-    [SerializeField, BoxGroup("Visual"), ShowIf("_visualType", OBVisualType.COLOR)]
-        private OBVColor _colorVisual;
+    [SerializeField, BoxGroup("Visual"), ShowIf("_visualType", OBVisualType.COLOR_SPRITE)]
+        private OBVColorSprite _colorSpriteVisual;
     [SerializeField, BoxGroup("Visual"), ShowIf("_visualType", OBVisualType.SPRITE)]
         private OBVSprite _spriteVisual;
     [SerializeField, BoxGroup("Visual"), ShowIf("_visualType", OBVisualType.ANIMATION)]
@@ -66,8 +66,8 @@ public class ObjectButton : MonoBehaviour
     private void InitializeVisual()
     {
         //Add visuals.
-        if (_visualType.HasFlag(OBVisualType.COLOR))
-            curVisuals.Add(_colorVisual);
+        if (_visualType.HasFlag(OBVisualType.COLOR_SPRITE))
+            curVisuals.Add(_colorSpriteVisual);
         if (_visualType.HasFlag(OBVisualType.SPRITE))
             curVisuals.Add(_spriteVisual);
         if (_visualType.HasFlag(OBVisualType.ANIMATION))
@@ -253,7 +253,7 @@ public class OBVisual
     #region Inspector
     private bool ShowIf_ConfirmVisualDuration()
     {
-        if (GetType().Equals(typeof(OBVColor))) return true;
+        if (GetType().Equals(typeof(OBVColorSprite))) return true;
         if (GetType().Equals(typeof(OBVSprite))) return true;
         if (GetType().Equals(typeof(OBVMaterial2D))) return true;
 
@@ -264,7 +264,8 @@ public class OBVisual
 [Flags]public enum OBVisualType
 {
     NONE = 0 << 000,
-    COLOR = 1 << 100,
+    COLOR_SPRITE = 1 << 100,
+    COLOR_IMAGE = 1 << 110,
     SPRITE = 1 << 200,
     ANIMATION = 1 << 300,
     MATERIAL2D = 1 << 400,
@@ -274,19 +275,24 @@ public class OBVisual
 [System.Serializable]
 public class OBVColor : OBVisual
 {
-    [SerializeField, AllowNesting, Required]
-        private SpriteRenderer _renderer;
-    private Color defaultColor;
+    protected Color defaultColor;
 
     [Header("Color")]
     [SerializeField, AllowNesting]
-        private Color _hover = Color.white;
+        protected Color _hover = Color.gray8;
     [SerializeField, AllowNesting]
-        private Color _select = Color.white;
+        protected Color _select = Color.gray6;
     [SerializeField, AllowNesting, Tooltip("Activated when hovering over a selected button. If this is not set, select will be activated.")]
-        private Color _hoverSelect = Color.white;
+        protected Color _hoverSelect = Color.gray4;
     [SerializeField, AllowNesting]
-        private Color _confirm = Color.white;
+        protected Color _confirm = Color.gray2;
+}
+//---------------------------------------------------------------------------------------------------------------------
+[System.Serializable]
+public class OBVColorSprite : OBVColor
+{
+    [SerializeField, AllowNesting, Required]
+        private SpriteRenderer _renderer;
 
     public override void Initialize(ObjectButton ob)
     {
